@@ -10,14 +10,6 @@
     {
       "src": "/(.*)",
       "dest": "api/index.py"
-    },
-    {
-      "src": "/metrics",
-      "dest": "/metrics"
-    },
-    {
-      "src": "/proxy",
-      "dest": "/proxy"
     }
   ]
 }
