@@ -28,19 +28,3 @@ async def say_hello(name: str):
 @app.post("/hello")
 async def hello_message(dto: ISayHelloDto):
     return {"message": f"Hello {dto.message}"}
-    
-@app.post("/proxy")
-async def proxy_request(proxy: ProxyRequest):
-    """Proxies a request to one of the backend services."""
-    backend_service = random.choice(DEFAULT_SERVICES)
-    target_url = f"{backend_service}/{proxy.path.lstrip('/')}"
-    
-    async with httpx.AsyncClient() as client:
-        if proxy.method.upper() == "GET":
-            response = await client.get(target_url)
-        elif proxy.method.upper() == "POST":
-            response = await client.post(target_url)
-        else:
-            raise HTTPException(status_code=405, detail="Method not allowed")
-
-    return JSONResponse(content=response.json(), status_code=response.status_code)
